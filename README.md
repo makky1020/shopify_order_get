@@ -1,0 +1,2 @@
+# shopify_order_get
+ShopifyからAPIを通じて注文情報を取得、Googleスプレッドシートへ出力する。
