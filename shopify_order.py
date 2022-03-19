@@ -36,6 +36,8 @@ credential = {
   "client_x509_cert_url": os.environ['SHEET_CLIENT_X509_CERT_URL'] 
 }
 
+print(credential)
+
 #認証情報設定
 credentials = ServiceAccountCredentials.from_json_keyfile_name(credential, scope)
 
