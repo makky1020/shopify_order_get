@@ -37,6 +37,7 @@ credential = {
 }
 
 print(credential)
+print(scope)
 
 #認証情報設定
 credentials = ServiceAccountCredentials.from_json_keyfile_name(credential, scope)
