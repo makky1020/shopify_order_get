@@ -1,3 +1,5 @@
+#Shopfy
+
 import requests
 import pandas as pd
 import json
@@ -9,6 +11,9 @@ import shopify
 import gspread as gs
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 from oauth2client.service_account import ServiceAccountCredentials
+import logging
+
+print('テスト')
 
 #B列の最終行を取得
 def next_available_row(sheet1):
