@@ -40,7 +40,7 @@ print(credential)
 print(scope)
 
 #認証情報設定
-credentials = ServiceAccountCredentials.from_json_keyfile_name(credential, scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(credential, scope)
 
 #OAuth2の資格情報を使用してGoogle APIにログイン
 gc = gs.authorize(credentials)
