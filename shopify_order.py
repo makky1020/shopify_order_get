@@ -64,7 +64,7 @@ while True:
 API_KEY = os.environ['API_KEY']
 API_PASS = os.environ['API_PASS']
 
-df = pd.DataFrame([],columns=('注文番号','注文日','金額','個数','商品名','商品コード','配送先氏名','なし','ストリート1','ストリート2','会社名','市区町村','郵便番号','都道府県','電話番号','要望','決済方法','注文ID','なし','画像'))
+df = pd.DataFrame([],columns=('注文番号','注文日','金額','個数','商品名','商品コード','配送先氏名','なし','ストリート1','ストリート2','会社名','市区町村','郵便番号','都道府県','電話番号','要望','決済方法','注文ID','商品ID','画像'))
 
 #スプレッドシートの最終注文ID以降の注文を抽出
 shop_url = "https://%s:%s@b-right-golf.myshopify.com/admin/api/2022-01/orders.json?since_id=" % (API_KEY, API_PASS) + worksheet.cell(id_row,19).value
@@ -88,17 +88,50 @@ for order in token['orders']:
     df.loc[i,'個数'] = item['quantity']
     df.loc[i,'商品名'] = item['name']
     df.loc[i,'商品コード'] = item['sku']
+    df.loc[i,'商品ID'] = item['id']
     df.loc[i,'配送先氏名'] = order['shipping_address']['name']
     df.loc[i,'ストリート1'] = order['shipping_address']['address1']
     df.loc[i,'ストリート2'] = order['shipping_address']['address2']
     df.loc[i,'会社名'] = order['shipping_address']['company']
     df.loc[i,'市区町村'] = order['shipping_address']['city']
     df.loc[i,'郵便番号'] = order['shipping_address']['zip']
-    df.loc[i,'都道府県'] = order['shipping_address']['province']
+
+    if order['shipping_address']['province'] == 'Aichi':
+      df.loc[i,'都道府県'] = '愛知県'
+    elif order['shipping_address']['province'] == 'Fukuoka':
+      df.loc[i,'都道府県'] = '福岡県'
+    elif order['shipping_address']['province'] == 'Ōsaka':
+      df.loc[i,'都道府県'] = '大阪府'
+    elif order['shipping_address']['province'] == 'Mie':
+      df.loc[i,'都道府県'] = '三重県'
+    elif order['shipping_address']['province'] == 'Kanagawa':
+      df.loc[i,'都道府県'] = '神奈川県'
+    elif order['shipping_address']['province'] == 'Tōkyō':
+      df.loc[i,'都道府県'] = '東京都'
+    elif order['shipping_address']['province'] == 'Wakayama':
+      df.loc[i,'都道府県'] = '和歌山県'
+    elif order['shipping_address']['province'] == 'Kyōto':
+      df.loc[i,'都道府県'] = '京都府'
+    elif order['shipping_address']['province'] == 'Hokkaidō':
+      df.loc[i,'都道府県'] = '北海道'
+    elif order['shipping_address']['province'] == 'Hyōgo':
+      df.loc[i,'都道府県'] = '兵庫県'
+    elif order['shipping_address']['province'] == 'Gifu':
+      df.loc[i,'都道府県'] = '岐阜県'
+    elif order['shipping_address']['province'] == 'Miyagi':
+      df.loc[i,'都道府県'] = '宮城県'
+    elif order['shipping_address']['province'] == 'Nagasaki':
+      df.loc[i,'都道府県'] = '長崎県'
+    elif order['shipping_address']['province'] == 'Tochigi':
+      df.loc[i,'都道府県'] = '栃木県'
+    elif order['shipping_address']['province'] == 'Tokushima':
+      df.loc[i,'都道府県'] = '徳島県'
+
     df.loc[i,'電話番号'] = order['shipping_address']['phone']
     df.loc[i,'要望'] = order['note']
     df.loc[i,'決済方法'] = order['payment_gateway_names'][0]
     df.loc[i,'注文ID'] = order['id']
+
 
     #商品IDとSKUをもとに画像IDを探す
     shop_url2 = "https://%s:%s@b-right-golf.myshopify.com/admin/api/2022-01/products/" % (API_KEY, API_PASS) +str(item['product_id'])+".json"
