@@ -81,7 +81,7 @@ for order in token['orders']:
     df.loc[i,'注文日'] = order['created_at']
     #複数注文がある場合、1番上の商品代金のみ送料をプラスする(送料無料の場合は0円)
     if x == 0:
-      df.loc[i,'金額'] = int(item['price']) + int(order['shipping_lines'][0]['price'])
+      df.loc[i,'金額'] = int(item['price']) + int(order['shipping_lines'][0]['price'] - order['current_total_discounts'])
     else:
       df.loc[i,'金額'] = item['price']
 
@@ -126,6 +126,8 @@ for order in token['orders']:
       df.loc[i,'都道府県'] = '栃木県'
     elif order['shipping_address']['province'] == 'Tokushima':
       df.loc[i,'都道府県'] = '徳島県'
+    elif order['shipping_address']['province'] == 'Saga':
+      df.loc[i,'都道府県'] = '佐賀県'
     else:
       df.loc[i,'都道府県'] = order['shipping_address']['province']
 
