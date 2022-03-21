@@ -88,7 +88,7 @@ for order in token['orders']:
     df.loc[i,'個数'] = item['quantity']
     df.loc[i,'商品名'] = item['name']
     df.loc[i,'商品コード'] = item['sku']
-    df.loc[i,'商品ID'] = item['id']
+    df.loc[i,'商品ID'] = item['product_id']
     df.loc[i,'配送先氏名'] = order['shipping_address']['name']
     df.loc[i,'ストリート1'] = order['shipping_address']['address1']
     df.loc[i,'ストリート2'] = order['shipping_address']['address2']
