@@ -13,8 +13,6 @@ from gspread_dataframe import get_as_dataframe, set_with_dataframe
 from oauth2client.service_account import ServiceAccountCredentials
 import logging
 
-print('テスト')
-
 #B列の最終行を取得
 def next_available_row(sheet1):
   str_list = list(filter(None, sheet1.col_values(2)))
@@ -81,7 +79,7 @@ for order in token['orders']:
     df.loc[i,'注文日'] = order['created_at']
     #複数注文がある場合、1番上の商品代金のみ送料をプラスする(送料無料の場合は0円)
     if x == 0:
-      df.loc[i,'金額'] = int(item['price']) + int(order['shipping_lines'][0]['price'] - order['current_total_discounts'])
+      df.loc[i,'金額'] = int(item['price']) + int(order['shipping_lines'][0]['price'] - int(order['current_total_discounts']))
     else:
       df.loc[i,'金額'] = item['price']
 
