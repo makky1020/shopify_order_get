@@ -142,6 +142,12 @@ for order in token['orders']:
       df.loc[i,'都道府県'] = '鳥取県'
     elif order['shipping_address']['province'] == 'Nagano':
       df.loc[i,'都道府県'] = '長野県'
+    elif order['shipping_address']['province'] == 'Nara':
+      df.loc[i,'都道府県'] = '奈良県'
+    elif order['shipping_address']['province'] == 'Niigata':
+      df.loc[i,'都道府県'] = '新潟県'
+    elif order['shipping_address']['province'] == 'Fukui':
+      df.loc[i,'都道府県'] = '福井県'
     else:
       df.loc[i,'都道府県'] = order['shipping_address']['province']
 
