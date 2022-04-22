@@ -166,6 +166,10 @@ for order in token['orders']:
       df.loc[i,'都道府県'] = '宮崎県'
     elif order['shipping_address']['province'] == 'Shiga':
       df.loc[i,'都道府県'] = '滋賀県'
+    elif order['shipping_address']['province'] == 'Toyama':
+      df.loc[i,'都道府県'] = '富山県'
+    elif order['shipping_address']['province'] == 'Kumamoto':
+      df.loc[i,'都道府県'] = '熊本県'
     else:
       df.loc[i,'都道府県'] = order['shipping_address']['province']
 
