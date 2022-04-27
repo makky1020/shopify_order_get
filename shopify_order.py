@@ -170,6 +170,10 @@ for order in token['orders']:
       df.loc[i,'都道府県'] = '富山県'
     elif order['shipping_address']['province'] == 'Kumamoto':
       df.loc[i,'都道府県'] = '熊本県'
+    elif order['shipping_address']['province'] == 'Kagawa':
+      df.loc[i,'都道府県'] = '香川県'
+    elif order['shipping_address']['province'] == 'Ibaraki':
+      df.loc[i,'都道府県'] = '茨城県'
     else:
       df.loc[i,'都道府県'] = order['shipping_address']['province']
 
@@ -184,9 +188,12 @@ for order in token['orders']:
     res2 = requests.get(shop_url2)
     token2 = res2.json()
 
-    for img_ids in token2['product']['variants']:
-      if img_ids['sku'] == item['sku']:
-        img_id = img_ids['image_id']
+    try:
+      for img_ids in token2['product']['variants']:
+        if img_ids['sku'] == item['sku']:
+          img_id = img_ids['image_id']
+    except KeyError:
+      continue
 
     #画像IDを元に商品画像URLを探す
     shop_url3 = "https://%s:%s@b-right-golf.myshopify.com/admin/api/2022-01/products/" % (API_KEY, API_PASS) +str(item['product_id'])+"/images/"+str(img_id)+".json"
